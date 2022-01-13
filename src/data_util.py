@@ -8,7 +8,7 @@ import os
 import random
 
 from torch.utils.data import Dataset
-from torchvision.datasets import CIFAR10, CIFAR100
+from torchvision.datasets import CIFAR10, CIFAR100, SVHN
 from torchvision.datasets import ImageFolder
 from torchvision.transforms import InterpolationMode
 from scipy import io
@@ -115,6 +115,8 @@ class Dataset_(Dataset):
 
         elif self.data_name == "CIFAR100":
             self.data = CIFAR100(root=self.data_dir, train=self.train, download=True)
+        elif self.data_name == "SVHN":
+            self.data = SVHN(root=self.data_dir, split='train' if self.train else 'test', download=True)
         else:
             mode = "train" if self.train == True else "valid"
             root = os.path.join(self.data_dir, mode)
