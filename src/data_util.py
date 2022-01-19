@@ -117,6 +117,11 @@ class Dataset_(Dataset):
             self.data = CIFAR100(root=self.data_dir, train=self.train, download=True)
         elif self.data_name == "SVHN":
             self.data = SVHN(root=self.data_dir, split='train' if self.train else 'test', download=True)
+        elif self.data_name == "CelebA32":
+            from torchvision.transforms import Compose, Resize, CenterCrop
+            tr = Compose([CenterCrop(140), Resize(32)])
+            self.data = CelebA(root_dir=self.data_dir, split='training' if self.train else 'evaluation',
+                               transform=tr)
         else:
             mode = "train" if self.train == True else "valid"
             root = os.path.join(self.data_dir, mode)
@@ -142,3 +147,47 @@ class Dataset_(Dataset):
             else:
                 img, label = self._get_hdf5(index)
         return self.trsf(img), int(label)
+
+
+class CelebA(Dataset):
+    def __init__(self, root_dir, split='training', transform=None, seed=1):
+        """attributes are not implemented"""
+        super().__init__()
+        assert split in ('training', 'validation', 'evaluation')
+        if split == 'training':
+            setnum = 0
+        elif split == 'validation':
+            setnum = 1
+        elif split == 'evaluation':
+            setnum = 2
+        else:
+            raise ValueError(f'Unexpected split {split}')
+
+        d_split = self.read_split_file(root_dir)
+        self.data = d_split[setnum]
+        self.transform = transform
+        self.split = split
+        self.root_dir = os.path.join(root_dir, 'CelebA', 'Img', 'img_align_celeba')
+
+
+    def __getitem__(self, index):
+        filename = self.data[index]
+        path = os.path.join(self.root_dir, filename)
+        image = Image.open(path).convert("RGB")
+        if self.transform is not None:
+            image = self.transform(image)
+        return image, 0. 
+
+    def __len__(self):
+        return len(self.data)
+
+    def read_split_file(self, root_dir):
+        split_path = os.path.join(root_dir, 'CelebA', 'Eval', 'list_eval_partition.txt')
+        d_split = {0:[], 1:[], 2:[]}
+        with open(split_path) as f:
+            for line in f:
+                fname, setnum = line.strip().split()
+                d_split[int(setnum)].append(fname)
+        return d_split
+
+
