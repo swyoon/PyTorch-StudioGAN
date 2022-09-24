@@ -142,7 +142,8 @@ def load_worker(local_rank, cfgs, gpus_per_node, run_name, hdf5_path):
             logger.info("Load {name} {ref} dataset for evaluation.".format(name=cfgs.DATA.name, ref=cfgs.RUN.ref_dataset))
         eval_dataset = Dataset_(data_name=cfgs.DATA.name,
                                 data_dir=cfgs.RUN.data_dir,
-                                train=True if cfgs.RUN.ref_dataset == "train" else False,
+                                # train=True if cfgs.RUN.ref_dataset == "train" else False,
+                                train=False if cfgs.RUN.ref_dataset == "train" else False,  # evaluate on the test split defined by each dataset
                                 crop_long_edge=False if cfgs.DATA.name in cfgs.MISC.no_proc_data else True,
                                 resize_size=None if cfgs.DATA.name in cfgs.MISC.no_proc_data else cfgs.DATA.img_size,
                                 resizer=cfgs.RUN.pre_resizer,

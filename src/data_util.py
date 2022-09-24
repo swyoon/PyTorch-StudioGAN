@@ -120,7 +120,12 @@ class Dataset_(Dataset):
         elif self.data_name == "CelebA32":
             from torchvision.transforms import Compose, Resize, CenterCrop
             tr = Compose([CenterCrop(140), Resize(32)])
-            self.data = CelebA(root_dir=self.data_dir, split='training' if self.train else 'evaluation',
+            self.data = CelebA(root_dir=self.data_dir, split='training' if self.train else 'validation',
+                               transform=tr)
+        elif self.data_name == "CelebA32_test":
+            from torchvision.transforms import Compose, Resize, CenterCrop
+            tr = Compose([CenterCrop(140), Resize(32)])
+            self.data = CelebA(root_dir=self.data_dir, split='evaluation' if self.train else 'validation',
                                transform=tr)
         else:
             mode = "train" if self.train == True else "valid"
