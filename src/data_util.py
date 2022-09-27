@@ -117,6 +117,8 @@ class Dataset_(Dataset):
             self.data = CIFAR100(root=self.data_dir, train=self.train, download=True)
         elif self.data_name == "SVHN":
             self.data = SVHN(root=self.data_dir, split='train' if self.train else 'test', download=True)
+        elif self.data_name == "SVHN_test":
+            self.data = SVHN(root=self.data_dir, split='test' if self.train else 'train', download=True)
         elif self.data_name == "CelebA32":
             from torchvision.transforms import Compose, Resize, CenterCrop
             tr = Compose([CenterCrop(140), Resize(32)])

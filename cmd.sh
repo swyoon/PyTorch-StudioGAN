@@ -22,4 +22,12 @@
 # CUDA_VISIBLE_DEVICES=1 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_CelebA/StyleGAN3-r-ADA_CelebA_test_z16.yaml -data datasets -save results/stylegan3-r-ada-celeba-test-z16
 
 # z32
-CUDA_VISIBLE_DEVICES=2 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_CelebA/StyleGAN3-r-ADA_CelebA_test_z32.yaml -data datasets -save results/stylegan3-r-ada-celeba-test-z32
+# CUDA_VISIBLE_DEVICES=2 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_CelebA/StyleGAN3-r-ADA_CelebA_test_z32.yaml -data datasets -save results/stylegan3-r-ada-celeba-test-z32
+
+
+
+########## SVHN
+# CUDA_VISIBLE_DEVICES=0 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_SVHN/StyleGAN2-ADA_SVHN_test.yaml -data datasets -save results/stylegan2-ada-svhn-test
+# CUDA_VISIBLE_DEVICES=1 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_SVHN/StyleGAN2-ADA_SVHN_test_z16.yaml -data datasets -save results/stylegan2-ada-svhn-test-z16
+# CUDA_VISIBLE_DEVICES=2 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_SVHN/StyleGAN2-ADA_SVHN_test_z32.yaml -data datasets -save results/stylegan2-ada-svhn-test-z32
+CUDA_VISIBLE_DEVICES=3 python3 src/main.py -hdf5 -l -t -metrics fid prdc -cfg src/configs/OOD_SVHN/StyleGAN2-ADA_SVHN_test_z64.yaml -data datasets -save results/stylegan2-ada-svhn-test-z64
