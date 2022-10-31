@@ -137,15 +137,16 @@ class Dataset_(Dataset):
                                 split='test' if self.train else 'val',
                                 transform=Resize(size))
         elif self.data_name == "fgvc":
-            from fgvc import FGVC
-            self.data = FGVCAircraft(root=os.path.join(self.data_dir, 'fgvc', 'fgvc-aircraft-2013b'),
+            from fgvc import FGVCAircraft
+            from torchvision.transforms import Resize
+            size = 128
+            self.data = FGVCAircraft(root=os.path.join(self.data_dir, 'FGVC', 'fgvc-aircraft-2013b'),
                                      split='test' if self.train else 'val',
                                      transform=Resize(size))
             pass
         elif self.data_name == "stanford_cars":
             from stanford_cars import StanfordCars
             from torchvision.transforms import Resize
-            augm_type = "none"
             size = 128 
             self.data = StanfordCars(root=os.path.join(self.data_dir, 'stanford_cars'), train=not self.train,
                                      transform=Resize(size))
