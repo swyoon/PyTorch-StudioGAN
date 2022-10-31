@@ -1,7 +1,7 @@
 DATA:
-  name: "SVHN_test"
-  img_size: 32
-  num_classes: 10
+  name: "flowers"
+  img_size: 128
+  num_classes: 196
 MODEL:
   backbone: "stylegan2"
   g_cond_mtd: "W/O"
@@ -28,7 +28,7 @@ OPTIMIZATION:
   d_first: False
   g_updates_per_step: 1
   d_updates_per_step: 1
-  total_steps: 200000 
+  total_steps: 200000
 AUG:
   apply_ada: True
   ada_aug_type: "bgc"
@@ -48,4 +48,4 @@ STYLEGAN:
   d_architecture: "orig"
   d_epilogue_mbstd_group_size: 32
 PRE:
-  apply_rflip: False
+  apply_rflip: True

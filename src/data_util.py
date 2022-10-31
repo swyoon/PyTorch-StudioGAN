@@ -129,6 +129,26 @@ class Dataset_(Dataset):
             tr = Compose([CenterCrop(140), Resize(32)])
             self.data = CelebA(root_dir=self.data_dir, split='evaluation' if self.train else 'validation',
                                transform=tr)
+        elif self.data_name == "flowers":
+            from flowers import Flowers
+            from torchvision.transforms import Resize
+            size = 128
+            self.data = Flowers(root=os.path.join(self.data_dir, 'flowers'),
+                                split='test' if self.train else 'val',
+                                transform=Resize(size))
+        elif self.data_name == "fgvc":
+            from fgvc import FGVC
+            self.data = FGVCAircraft(root=os.path.join(self.data_dir, 'fgvc', 'fgvc-aircraft-2013b'),
+                                     split='test' if self.train else 'val',
+                                     transform=Resize(size))
+            pass
+        elif self.data_name == "stanford_cars":
+            from stanford_cars import StanfordCars
+            from torchvision.transforms import Resize
+            augm_type = "none"
+            size = 128 
+            self.data = StanfordCars(root=os.path.join(self.data_dir, 'stanford_cars'), train=not self.train,
+                                     transform=Resize(size))
         else:
             mode = "train" if self.train == True else "valid"
             root = os.path.join(self.data_dir, mode)
