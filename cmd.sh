@@ -43,4 +43,7 @@
 
 
 # Flowers
-CUDA_VISIBLE_DEVICES=3 python3 src/main.py -hdf5 -l -t -metrics is fid -cfg src/configs/OOD_flowers/StyleGAN2-ADA_flowers_test_z16.yaml -data datasets -save results/stylegan2-ada-flowers-test-z16
+# CUDA_VISIBLE_DEVICES=3 python3 src/main.py -hdf5 -l -t -metrics is fid -cfg src/configs/OOD_flowers/StyleGAN2-ADA_flowers_test_z16.yaml -data datasets -save results/stylegan2-ada-flowers-test-z16
+
+# CUDA_VISIBLE_DEVICES=0,1 python3 src/main.py -hdf5 -l -t -metrics is fid -cfg src/configs/OOD_fgvc/StyleGAN2-ADA_fgvc_test_z16.yaml -data datasets -save results/stylegan2-ada-fgvc-test-z16
+CUDA_VISIBLE_DEVICES=2,3 python3 src/main.py -hdf5 -l -t -metrics is fid -cfg src/configs/OOD_fgvc/StyleGAN2-ADA_fgvc_test_z16_bigparam.yaml -data datasets -save results/stylegan2-ada-fgvc-test-z16-bigparam
